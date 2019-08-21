@@ -123,7 +123,6 @@ void parse_args(int argc, char **argv) {
     switch (c) {
     case 'z':
       zone = optarg;
-      printf("Got zone %s\n", zone);
       break;
     case 'p':
       port_string = optarg;
