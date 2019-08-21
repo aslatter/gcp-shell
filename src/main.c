@@ -205,7 +205,9 @@ void setup_tunnel() {
       // TODO - print error
       exit(EXIT_FAILURE);
     }
+    args[idx++] = zone_arg;
   }
+
   args[idx++] = dest_port;
   args[idx++] = bind_arg;
   args[idx++] = NULL;
