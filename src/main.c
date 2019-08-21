@@ -80,15 +80,17 @@ int main(int argc, char **argv) {
     }
 
     // tunnel finished early - kill terminal
-    if (done_child == tunnel_child && ssh_child) {
-      kill(ssh_child, SIGTERM);
+    if (done_child == tunnel_child) {
+      if (ssh_child)
+        kill(ssh_child, SIGTERM);
       tunnel_child = 0;
       continue;
     }
 
     // ssh done - kill tunnel
-    if (done_child == ssh_child && tunnel_child) {
-      kill(tunnel_child, SIGTERM);
+    if (done_child == ssh_child) {
+      if (tunnel_child)
+        kill(tunnel_child, SIGTERM);
       ssh_child = 0;
       continue;
     }
@@ -102,9 +104,8 @@ void usage() {
          prog_name);
   printf("  Open an IAP tunnel to GCP compute <instance> on local-port "
          "<localPort>.\n");
-  printf("  Then open an ssh connect, and close the tunnel when the conneciton "
-         "is\n");
-  printf("  complete.\n\n");
+  printf("  Then open an ssh connection, and close the tunnel when the\n");
+  printf("  conneciton is complete.\n\n");
 
   printf("  The zone may be specified by the '-z' argument or by the usual\n");
   printf("  GCP configuration options.\n\n");
